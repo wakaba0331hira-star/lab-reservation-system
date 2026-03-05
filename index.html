@@ -7,147 +7,170 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0d1117; --surface: #161b22; --surface2: #1c2330;
-    --border: #30363d; --border-light: #21262d;
-    --text: #e6edf3; --text-muted: #7d8590; --text-dim: #484f58;
-    --accent: #58a6ff; --accent2: #3fb950; --accent4: #d2a8ff;
-    --warn: #e3b341; --cancel: #f85149;
-    --glow: rgba(88,166,255,0.15);
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+    --surface2: #f0f2f5;
+    --border: #e2e6ea;
+    --border-light: #edf0f3;
+    --text: #1a1f2e;
+    --text-muted: #6b7280;
+    --text-dim: #9ca3af;
+    --accent: #3b82f6;
+    --accent2: #10b981;
+    --accent4: #8b5cf6;
+    --warn: #f59e0b;
+    --cancel: #ef4444;
+    --complete: #10b981;
+    --glow: rgba(59,130,246,0.08);
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.05);
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:var(--text); font-family:'Noto Sans JP',sans-serif; min-height:100vh; overflow-x:hidden; }
-  body::before {
-    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
-    background-image: linear-gradient(rgba(88,166,255,0.03) 1px,transparent 1px), linear-gradient(90deg,rgba(88,166,255,0.03) 1px,transparent 1px);
-    background-size:40px 40px;
-  }
-  .container { position:relative; z-index:1; max-width:1500px; margin:0 auto; padding:16px 20px; }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans JP',sans-serif; min-height:100vh; }
 
-  header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid var(--border); }
-  .header-left { display:flex; align-items:center; gap:16px; }
-  .logo { width:44px; height:44px; background:linear-gradient(135deg,var(--accent),var(--accent4)); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:22px; box-shadow:0 0 20px rgba(88,166,255,0.3); }
-  h1 { font-size:20px; font-weight:700; letter-spacing:-0.3px; }
-  h1 span { display:block; font-size:12px; font-weight:300; color:var(--text-muted); letter-spacing:2px; text-transform:uppercase; font-family:'JetBrains Mono',monospace; }
-  .header-right { display:flex; align-items:center; gap:10px; }
-  .date-nav { display:flex; align-items:center; gap:8px; }
-  .nav-btn { height:36px; background:var(--surface); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:16px; transition:all 0.2s; padding:0 10px; font-family:'Noto Sans JP',sans-serif; white-space:nowrap; }
+  .container { max-width:1500px; margin:0 auto; padding:16px 20px; }
+
+  header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+  .header-left { display:flex; align-items:center; gap:14px; }
+  .logo { width:42px; height:42px; background:linear-gradient(135deg,var(--accent),var(--accent4)); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 4px 12px rgba(59,130,246,0.3); }
+  h1 { font-size:19px; font-weight:700; color:var(--text); }
+  h1 span { display:block; font-size:11px; font-weight:400; color:var(--text-muted); letter-spacing:1.5px; text-transform:uppercase; font-family:'JetBrains Mono',monospace; margin-top:1px; }
+  .header-right { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .date-nav { display:flex; align-items:center; gap:6px; }
+  .nav-btn { height:34px; background:var(--surface); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; transition:all 0.2s; padding:0 10px; font-family:'Noto Sans JP',sans-serif; white-space:nowrap; box-shadow:var(--shadow); }
   .nav-btn:hover { border-color:var(--accent); color:var(--accent); background:var(--glow); }
-  .current-date { font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:600; color:var(--text); background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:8px 16px; min-width:160px; text-align:center; }
+  .current-date { font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:600; color:var(--text); background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:7px 14px; min-width:150px; text-align:center; box-shadow:var(--shadow); }
 
-  .members-bar { display:flex; align-items:center; gap:12px; margin-bottom:10px; padding:10px 14px; background:var(--surface); border:1px solid var(--border); border-radius:12px; flex-wrap:wrap; }
-  .members-label { font-size:11px; text-transform:uppercase; letter-spacing:2px; color:var(--text-muted); font-family:'JetBrains Mono',monospace; white-space:nowrap; }
-  .members-list { display:flex; gap:8px; flex-wrap:wrap; flex:1; }
-  .member-chip { display:flex; align-items:center; gap:6px; padding:4px 10px; border-radius:20px; border:1px solid; font-size:12px; cursor:pointer; transition:all 0.2s; user-select:none; position:relative; }
-  .member-chip:hover { opacity:0.8; transform:translateY(-1px); }
+  .members-bar { display:flex; align-items:center; gap:10px; margin-bottom:10px; padding:10px 14px; background:var(--surface); border:1px solid var(--border); border-radius:12px; flex-wrap:wrap; box-shadow:var(--shadow); }
+  .members-label { font-size:10px; text-transform:uppercase; letter-spacing:2px; color:var(--text-muted); font-family:'JetBrains Mono',monospace; white-space:nowrap; }
+  .members-list { display:flex; gap:6px; flex-wrap:wrap; flex:1; }
+  .member-chip { display:flex; align-items:center; gap:5px; padding:4px 10px; border-radius:20px; border:1.5px solid; font-size:12px; cursor:pointer; transition:all 0.2s; user-select:none; position:relative; }
+  .member-chip:hover { transform:translateY(-1px); box-shadow:var(--shadow); }
   .member-chip.selected { font-weight:700; }
-  .member-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
-  .chip-edit-btn { display:none; width:16px; height:16px; border-radius:50%; background:rgba(255,255,255,0.15); border:none; color:inherit; font-size:9px; cursor:pointer; align-items:center; justify-content:center; margin-left:2px; flex-shrink:0; transition:background 0.2s; line-height:1; padding:0; }
+  .member-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+  .chip-edit-btn { display:none; width:15px; height:15px; border-radius:50%; background:rgba(0,0,0,0.1); border:none; color:inherit; font-size:8px; cursor:pointer; align-items:center; justify-content:center; margin-left:2px; flex-shrink:0; }
   .member-chip:hover .chip-edit-btn { display:flex; }
-  .chip-edit-btn:hover { background:rgba(255,255,255,0.3); }
-  .add-member-btn { background:transparent; border:1px dashed var(--border); color:var(--text-muted); padding:4px 12px; border-radius:20px; font-size:12px; cursor:pointer; font-family:'Noto Sans JP',sans-serif; transition:all 0.2s; }
+  .chip-edit-btn:hover { background:rgba(0,0,0,0.2); }
+  .add-member-btn { background:transparent; border:1.5px dashed var(--border); color:var(--text-muted); padding:4px 10px; border-radius:20px; font-size:11px; cursor:pointer; font-family:'Noto Sans JP',sans-serif; transition:all 0.2s; }
   .add-member-btn:hover { border-color:var(--accent); color:var(--accent); }
   .active-user-info { font-size:12px; color:var(--text-muted); white-space:nowrap; }
   .active-user-info strong { color:var(--text); }
 
-  .stats-bar { display:flex; gap:16px; margin-bottom:10px; padding:8px 14px; background:var(--surface); border:1px solid var(--border); border-radius:12px; }
-  .stat-item { text-align:center; flex:1; }
+  .stats-bar { display:flex; gap:0; margin-bottom:10px; background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; box-shadow:var(--shadow); }
+  .stat-item { text-align:center; flex:1; padding:8px 6px; }
+  .stat-item + .stat-item { border-left:1px solid var(--border); }
   .stat-value { font-size:16px; font-weight:700; font-family:'JetBrains Mono',monospace; color:var(--accent); }
-  .stat-label { font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-top:2px; }
-  .stat-divider { width:1px; background:var(--border); }
+  .stat-label { font-size:9px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-top:1px; }
 
-  .schedule-wrapper { background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+  .schedule-wrapper { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:var(--shadow-md); }
   .schedule-scroll { overflow-x:auto; overflow-y:visible; }
   table { width:100%; border-collapse:separate; border-spacing:0; min-width:900px; }
   thead { position:sticky; top:0; z-index:10; }
-  thead tr:first-child th { background:var(--surface2); border-bottom:1px solid var(--border); padding:10px 8px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); font-family:'JetBrains Mono',monospace; white-space:nowrap; }
+  thead tr th { background:var(--surface2); border-bottom:2px solid var(--border); padding:8px 6px; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); font-family:'JetBrains Mono',monospace; white-space:nowrap; }
   .time-header { width:58px; text-align:center; }
-  .equipment-header { text-align:center; position:relative; min-width:160px; }
-  .equip-icon { display:block; font-size:14px; margin-bottom:2px; }
-  .equip-name { color:var(--text); font-size:11px; font-family:'Noto Sans JP',sans-serif; font-weight:500; letter-spacing:0; text-transform:none; }
-  .equip-count { font-size:10px; color:var(--text-muted); margin-top:2px; font-family:'JetBrains Mono',monospace; letter-spacing:0; text-transform:none; display:block; }
+  .equipment-header { text-align:center; position:relative; min-width:150px; }
+  .equip-icon { display:block; font-size:13px; margin-bottom:1px; }
+  .equip-name { color:var(--text); font-size:11px; font-family:'Noto Sans JP',sans-serif; font-weight:600; letter-spacing:0; text-transform:none; }
+  .equip-count { font-size:9px; color:var(--text-muted); margin-top:1px; font-family:'JetBrains Mono',monospace; display:block; }
 
-  tbody tr { border-bottom:1px solid var(--border-light); transition:background 0.15s; }
-  tbody tr:hover { background:rgba(88,166,255,0.02); }
+  /* 完了申請トグル */
+  .complete-toggle { display:inline-flex; align-items:center; gap:4px; margin-top:3px; cursor:pointer; user-select:none; }
+  .toggle-track { width:28px; height:15px; border-radius:8px; background:#d1d5db; transition:background 0.2s; position:relative; flex-shrink:0; }
+  .toggle-track.on { background:var(--complete); }
+  .toggle-thumb { width:11px; height:11px; border-radius:50%; background:#fff; position:absolute; top:2px; left:2px; transition:left 0.2s; box-shadow:0 1px 2px rgba(0,0,0,0.2); }
+  .toggle-track.on .toggle-thumb { left:15px; }
+  .toggle-label { font-size:8px; color:var(--text-muted); font-family:'Noto Sans JP',sans-serif; text-transform:none; letter-spacing:0; }
+  .toggle-track.on + .toggle-label { color:var(--complete); font-weight:600; }
+
+  tbody tr { border-bottom:1px solid var(--border-light); transition:background 0.1s; }
+  tbody tr:hover { background:rgba(59,130,246,0.02); }
   tbody tr.hour-start td { border-top:1px solid var(--border); }
   tbody tr:not(.hour-start) td { border-top:none; }
-  .time-cell { padding:0 8px; text-align:center; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-muted); width:58px; white-space:nowrap; vertical-align:middle; height:26px; }
-  tr.hour-start .time-cell { color:var(--text); font-weight:600; font-size:12px; }
+  .time-cell { padding:0 6px; text-align:center; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); width:58px; white-space:nowrap; vertical-align:middle; height:26px; }
+  tr.hour-start .time-cell { color:var(--text); font-weight:700; font-size:11px; }
   .slot-cell { padding:1px 2px; vertical-align:middle; height:26px; border-left:1px solid var(--border-light); }
-  .slot-inner { height:100%; border-radius:4px; display:flex; align-items:center; justify-content:center; padding:2px 6px; cursor:pointer; transition:all 0.15s; position:relative; }
-  .slot-inner.empty:hover { background:var(--glow); border:1px dashed rgba(88,166,255,0.3); }
-  .slot-inner.booked { font-size:11px; font-weight:500; box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08); }
-  .slot-inner.booked:hover { filter:brightness(1.1); transform:scale(1.01); }
-  .slot-name { font-size:10px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:110px; }
-  .slot-time-label { font-size:8px; font-family:'JetBrains Mono',monospace; opacity:0.7; margin-left:4px; white-space:nowrap; }
+  .slot-inner { height:100%; border-radius:4px; display:flex; align-items:center; justify-content:center; padding:2px 6px; cursor:pointer; transition:all 0.15s; position:relative; gap:4px; }
+  .slot-inner.empty:hover { background:var(--glow); border:1px dashed rgba(59,130,246,0.3); }
+  .slot-inner.booked { font-size:11px; font-weight:500; }
+  .slot-inner.booked:hover { filter:brightness(0.96); transform:scale(1.01); }
+  .slot-inner.completed { opacity:0.55; }
+  .slot-name { font-size:10px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100px; }
+  .slot-time-label { font-size:8px; font-family:'JetBrains Mono',monospace; opacity:0.65; margin-left:3px; white-space:nowrap; }
   .current-time-row td { border-top:2px solid var(--accent) !important; }
+
+  /* 完了ボタン（予約スロット内） */
+  .complete-btn { display:none; width:18px; height:18px; border-radius:50%; background:var(--complete); border:none; color:#fff; font-size:10px; cursor:pointer; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.2s; box-shadow:0 1px 3px rgba(16,185,129,0.4); }
+  .slot-inner.booked:hover .complete-btn.visible { display:flex; }
+  .slot-inner.completed .complete-btn { display:none !important; }
 
   /* Notification */
   .notification-panel { position:fixed; top:20px; right:20px; width:360px; z-index:1000; display:flex; flex-direction:column; gap:8px; pointer-events:none; }
-  .notification { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:14px 16px; display:flex; gap:12px; align-items:flex-start; box-shadow:0 8px 32px rgba(0,0,0,0.5); pointer-events:all; animation:slideIn 0.3s ease; position:relative; overflow:hidden; }
+  .notification { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; display:flex; gap:12px; align-items:flex-start; box-shadow:0 8px 24px rgba(0,0,0,0.12); pointer-events:all; animation:slideIn 0.3s ease; position:relative; overflow:hidden; }
   .notification::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; }
   .notification.cancel::before { background:var(--cancel); }
-  .notification.reserve::before { background:var(--accent2); }
-  .notification.info::before { background:var(--accent); }
-  @keyframes slideIn { from{transform:translateX(100%);opacity:0} to{transform:translateX(0);opacity:1} }
-  @keyframes slideOut { from{transform:translateX(0);opacity:1} to{transform:translateX(100%);opacity:0} }
+  .notification.reserve::before { background:var(--accent); }
+  .notification.info::before { background:var(--accent4); }
+  .notification.complete::before { background:var(--complete); }
+  @keyframes slideIn { from{transform:translateX(110%);opacity:0} to{transform:translateX(0);opacity:1} }
+  @keyframes slideOut { from{transform:translateX(0);opacity:1} to{transform:translateX(110%);opacity:0} }
   .notif-icon { font-size:18px; }
   .notif-body { flex:1; }
-  .notif-title { font-size:13px; font-weight:600; margin-bottom:3px; }
+  .notif-title { font-size:13px; font-weight:700; margin-bottom:3px; }
   .notification.cancel .notif-title { color:var(--cancel); }
-  .notification.reserve .notif-title { color:var(--accent2); }
-  .notification.info .notif-title { color:var(--accent); }
+  .notification.reserve .notif-title { color:var(--accent); }
+  .notification.info .notif-title { color:var(--accent4); }
+  .notification.complete .notif-title { color:var(--complete); }
   .notif-text { font-size:12px; color:var(--text-muted); line-height:1.5; }
   .notif-time { font-size:10px; color:var(--text-dim); font-family:'JetBrains Mono',monospace; margin-top:4px; }
   .notif-close { background:none; border:none; color:var(--text-dim); cursor:pointer; font-size:14px; padding:0; transition:color 0.2s; }
   .notif-close:hover { color:var(--text); }
 
   /* Modal */
-  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); z-index:500; align-items:center; justify-content:center; }
+  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(15,23,42,0.4); backdrop-filter:blur(4px); z-index:500; align-items:center; justify-content:center; }
   .modal-overlay.open { display:flex; }
-  .modal { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px; width:420px; max-width:95vw; box-shadow:0 20px 60px rgba(0,0,0,0.6); animation:fadeUp 0.25s ease; }
-  @keyframes fadeUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
-  .modal-title { font-size:16px; font-weight:700; margin-bottom:6px; }
-  .modal-subtitle { font-size:12px; color:var(--text-muted); margin-bottom:24px; font-family:'JetBrains Mono',monospace; }
-  .modal-field { margin-bottom:16px; }
-  .modal-field label { display:block; font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); margin-bottom:8px; font-family:'JetBrains Mono',monospace; }
-  .modal-field select, .modal-field input { width:100%; background:var(--bg); border:1px solid var(--border); border-radius:8px; color:var(--text); padding:10px 14px; font-size:14px; font-family:'Noto Sans JP',sans-serif; outline:none; transition:border-color 0.2s; }
-  .modal-field select:focus, .modal-field input:focus { border-color:var(--accent); }
+  .modal { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:26px; width:420px; max-width:95vw; box-shadow:0 20px 50px rgba(0,0,0,0.15); animation:fadeUp 0.22s ease; }
+  @keyframes fadeUp { from{transform:translateY(16px);opacity:0} to{transform:translateY(0);opacity:1} }
+  .modal-title { font-size:16px; font-weight:700; margin-bottom:4px; }
+  .modal-subtitle { font-size:12px; color:var(--text-muted); margin-bottom:22px; font-family:'JetBrains Mono',monospace; }
+  .modal-field { margin-bottom:14px; }
+  .modal-field label { display:block; font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); margin-bottom:7px; font-family:'JetBrains Mono',monospace; }
+  .modal-field select, .modal-field input { width:100%; background:var(--bg); border:1px solid var(--border); border-radius:8px; color:var(--text); padding:9px 13px; font-size:14px; font-family:'Noto Sans JP',sans-serif; outline:none; transition:border-color 0.2s; }
+  .modal-field select:focus, .modal-field input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(59,130,246,0.1); }
   .modal-field select option { background:var(--surface); }
-  .duration-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
-  .dur-btn { padding:8px; background:var(--bg); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); font-size:12px; cursor:pointer; text-align:center; transition:all 0.2s; font-family:'JetBrains Mono',monospace; }
+  .duration-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; }
+  .dur-btn { padding:7px; background:var(--bg); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); font-size:12px; cursor:pointer; text-align:center; transition:all 0.2s; font-family:'JetBrains Mono',monospace; }
   .dur-btn:hover, .dur-btn.active { border-color:var(--accent); color:var(--accent); background:var(--glow); }
-  .modal-actions { display:flex; gap:10px; margin-top:24px; }
+  .modal-actions { display:flex; gap:8px; margin-top:22px; }
   .btn { flex:1; padding:10px; border-radius:8px; border:none; font-size:13px; font-weight:600; cursor:pointer; font-family:'Noto Sans JP',sans-serif; transition:all 0.2s; }
-  .btn-primary { background:var(--accent); color:var(--bg); }
-  .btn-primary:hover { background:#79b8ff; }
+  .btn-primary { background:var(--accent); color:#fff; }
+  .btn-primary:hover { background:#2563eb; }
   .btn-secondary { background:var(--surface2); color:var(--text-muted); border:1px solid var(--border); }
   .btn-secondary:hover { color:var(--text); border-color:var(--text-muted); }
-  .btn-danger { background:rgba(248,81,73,0.15); color:var(--cancel); border:1px solid rgba(248,81,73,0.3); }
-  .btn-danger:hover { background:rgba(248,81,73,0.25); }
-  .cancel-warning { background:rgba(248,81,73,0.08); border:1px solid rgba(248,81,73,0.2); border-radius:8px; padding:12px 16px; margin-bottom:20px; }
-  .cancel-warning .warn-icon { font-size:20px; margin-bottom:6px; }
+  .btn-danger { background:rgba(239,68,68,0.08); color:var(--cancel); border:1px solid rgba(239,68,68,0.25); }
+  .btn-danger:hover { background:rgba(239,68,68,0.15); }
+  .cancel-warning { background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.2); border-radius:8px; padding:12px 14px; margin-bottom:18px; }
+  .cancel-warning .warn-icon { font-size:18px; margin-bottom:4px; }
   .cancel-warning p { font-size:12px; color:var(--text-muted); line-height:1.6; }
   .cancel-warning strong { color:var(--cancel); }
-  .booking-info { background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:14px; margin-bottom:20px; }
-  .booking-info-row { display:flex; justify-content:space-between; align-items:center; padding:4px 0; font-size:13px; }
-  .booking-info-row span:first-child { color:var(--text-muted); font-size:11px; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:1px; }
+  .booking-info { background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:12px; margin-bottom:18px; }
+  .booking-info-row { display:flex; justify-content:space-between; align-items:center; padding:3px 0; font-size:13px; }
+  .booking-info-row span:first-child { color:var(--text-muted); font-size:10px; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:1px; }
 
   /* Equipment modal */
   .equip-row { display:flex; align-items:center; gap:8px; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:8px 10px; }
-  .equip-row-icon { font-size:20px; cursor:pointer; width:36px; text-align:center; flex-shrink:0; background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:4px; transition:border-color 0.2s; }
+  .equip-row-icon { font-size:18px; cursor:pointer; width:34px; text-align:center; flex-shrink:0; background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:3px; transition:border-color 0.2s; }
   .equip-row-icon:hover { border-color:var(--accent); }
-  .equip-row-name { flex:1; background:transparent; border:none; border-bottom:1px solid var(--border); color:var(--text); font-size:13px; font-family:'Noto Sans JP',sans-serif; padding:4px 2px; outline:none; transition:border-color 0.2s; }
+  .equip-row-name { flex:1; background:transparent; border:none; border-bottom:1px solid var(--border); color:var(--text); font-size:13px; font-family:'Noto Sans JP',sans-serif; padding:3px 2px; outline:none; transition:border-color 0.2s; }
   .equip-row-name:focus { border-color:var(--accent); }
   .equip-row-del { background:none; border:1px solid transparent; color:var(--text-dim); cursor:pointer; font-size:14px; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; transition:all 0.2s; flex-shrink:0; }
-  .equip-row-del:hover { color:var(--cancel); border-color:var(--cancel); background:rgba(248,81,73,0.1); }
-  .emoji-picker { position:fixed; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px; display:flex; flex-wrap:wrap; gap:4px; width:220px; z-index:600; box-shadow:0 8px 32px rgba(0,0,0,0.5); }
+  .equip-row-del:hover { color:var(--cancel); border-color:var(--cancel); background:rgba(239,68,68,0.06); }
+  .emoji-picker { position:fixed; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:10px; display:flex; flex-wrap:wrap; gap:4px; width:220px; z-index:600; box-shadow:0 8px 24px rgba(0,0,0,0.12); }
   .emoji-btn { font-size:18px; width:32px; height:32px; border:none; background:transparent; cursor:pointer; border-radius:6px; transition:background 0.15s; }
-  .emoji-btn:hover { background:var(--border); }
+  .emoji-btn:hover { background:var(--surface2); }
 
-  /* Sync badge */
-  #syncStatus { font-size:12px; font-family:'JetBrains Mono',monospace; color:var(--text-muted); white-space:nowrap; }
+  #syncStatus { font-size:11px; font-family:'JetBrains Mono',monospace; color:var(--text-muted); white-space:nowrap; }
 
-  ::-webkit-scrollbar { width:6px; height:6px; }
+  ::-webkit-scrollbar { width:5px; height:5px; }
   ::-webkit-scrollbar-track { background:transparent; }
   ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
 </style>
@@ -179,11 +202,8 @@
 
   <div class="stats-bar">
     <div class="stat-item"><div class="stat-value" id="statTotal">0</div><div class="stat-label">本日の予約数</div></div>
-    <div class="stat-divider"></div>
     <div class="stat-item"><div class="stat-value" id="statFree">—</div><div class="stat-label">空きスロット</div></div>
-    <div class="stat-divider"></div>
     <div class="stat-item"><div class="stat-value" id="statUsers">0</div><div class="stat-label">利用メンバー数</div></div>
-    <div class="stat-divider"></div>
     <div class="stat-item"><div class="stat-value" id="statPeak">—</div><div class="stat-label">最混雑時間帯</div></div>
   </div>
 
@@ -204,8 +224,8 @@
   <div class="modal" style="width:500px">
     <div class="modal-title">⚗️ 装置の管理</div>
     <div class="modal-subtitle">装置の追加・編集・削除ができます</div>
-    <div id="equipList" style="margin-bottom:16px;display:flex;flex-direction:column;gap:6px;max-height:340px;overflow-y:auto;"></div>
-    <button class="btn btn-secondary" onclick="addEquipRow()" style="width:100%;margin-bottom:16px;border-style:dashed;">＋ 装置を追加</button>
+    <div id="equipList" style="margin-bottom:14px;display:flex;flex-direction:column;gap:6px;max-height:340px;overflow-y:auto;"></div>
+    <button class="btn btn-secondary" onclick="addEquipRow()" style="width:100%;margin-bottom:14px;border-style:dashed;">＋ 装置を追加</button>
     <div class="modal-actions">
       <button class="btn btn-secondary" onclick="closeModal('equipModal')">閉じる</button>
       <button class="btn btn-primary" onclick="saveEquipChanges()">保存する</button>
@@ -218,10 +238,7 @@
   <div class="modal">
     <div class="modal-title">メンバー名の変更</div>
     <div class="modal-subtitle" id="renameModalSubtitle"></div>
-    <div class="modal-field">
-      <label>新しい名前</label>
-      <input type="text" id="renameInput" placeholder="名前を入力..." maxlength="20" onkeydown="if(event.key==='Enter') confirmRename()">
-    </div>
+    <div class="modal-field"><label>新しい名前</label><input type="text" id="renameInput" placeholder="名前を入力..." maxlength="20" onkeydown="if(event.key==='Enter') confirmRename()"></div>
     <div class="modal-actions">
       <button class="btn btn-secondary" onclick="closeModal('renameModal')">キャンセル</button>
       <button class="btn btn-primary" onclick="confirmRename()">変更する</button>
@@ -256,12 +273,23 @@
   </div>
 </div>
 
-<!-- Firebase SDK -->
+<!-- Complete Modal -->
+<div class="modal-overlay" id="completeModal">
+  <div class="modal">
+    <div class="modal-title">✅ 使用完了の申請</div>
+    <div class="booking-info" id="completeBookingInfo"></div>
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:18px;line-height:1.6;">使用完了を全メンバーに通知します。予約時間が残っていても、次の人がすぐに使えるようになります。</p>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('completeModal')">戻る</button>
+      <button class="btn btn-primary" style="background:var(--complete);" onclick="confirmComplete()">完了を通知する</button>
+    </div>
+  </div>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, set, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-// ===== Firebase config =====
 const firebaseConfig = {
   apiKey: "AIzaSyANXOfxhIp4_XD68A4JL9loa6kLMTPEa5E",
   authDomain: "lab-reservation-fe1fa.firebaseapp.com",
@@ -276,14 +304,14 @@ const db  = getDatabase(app);
 
 // ===== Constants =====
 const MEMBER_COLORS = [
-  { bg:'rgba(88,166,255,0.15)',  border:'#58a6ff', text:'#58a6ff', dot:'#58a6ff' },
-  { bg:'rgba(63,185,80,0.15)',   border:'#3fb950', text:'#3fb950', dot:'#3fb950' },
-  { bg:'rgba(210,168,255,0.15)', border:'#d2a8ff', text:'#d2a8ff', dot:'#d2a8ff' },
-  { bg:'rgba(255,166,87,0.15)',  border:'#ffa657', text:'#ffa657', dot:'#ffa657' },
-  { bg:'rgba(247,129,102,0.15)', border:'#f78166', text:'#f78166', dot:'#f78166' },
-  { bg:'rgba(121,192,255,0.15)', border:'#79c0ff', text:'#79c0ff', dot:'#79c0ff' },
-  { bg:'rgba(227,179,65,0.15)',  border:'#e3b341', text:'#e3b341', dot:'#e3b341' },
-  { bg:'rgba(255,123,114,0.15)', border:'#ff7b72', text:'#ff7b72', dot:'#ff7b72' },
+  { bg:'rgba(59,130,246,0.1)',   border:'#3b82f6', text:'#2563eb', dot:'#3b82f6' },
+  { bg:'rgba(16,185,129,0.1)',   border:'#10b981', text:'#059669', dot:'#10b981' },
+  { bg:'rgba(139,92,246,0.1)',   border:'#8b5cf6', text:'#7c3aed', dot:'#8b5cf6' },
+  { bg:'rgba(245,158,11,0.1)',   border:'#f59e0b', text:'#d97706', dot:'#f59e0b' },
+  { bg:'rgba(239,68,68,0.1)',    border:'#ef4444', text:'#dc2626', dot:'#ef4444' },
+  { bg:'rgba(20,184,166,0.1)',   border:'#14b8a6', text:'#0d9488', dot:'#14b8a6' },
+  { bg:'rgba(249,115,22,0.1)',   border:'#f97316', text:'#ea580c', dot:'#f97316' },
+  { bg:'rgba(236,72,153,0.1)',   border:'#ec4899', text:'#db2777', dot:'#ec4899' },
 ];
 const LAB_EMOJIS = ['🧫','🔬','⚙️','🔷','🧪','🧬','💉','🩺','🔭','🧲','🧯','🔩','💡','🖥️','📡','🧊','🌡️','⚗️','🔋','🪬','🧴','🩻','🫧','🔑','📦'];
 const SLOTS = [];
@@ -299,148 +327,140 @@ const DEFAULT_EQUIPMENT = [
   {id:4,name:'ウェスタンブロット',icon:'🧪'},
 ];
 
-// ===== State (local) =====
-let equipment    = DEFAULT_EQUIPMENT.map(e=>({...e}));
-let nextEquipId  = 5;
-let members      = ['田中','鈴木','佐藤','山田'];
-let activeUser   = '田中';
-let bookings     = {};   // { dateKey: { equipId: { slotIdx: {name,slots,isFirst} } } }
-let currentDate  = new Date(); currentDate.setHours(0,0,0,0);
-let pendingBook  = null;
-let pendingCancel= null;
+// ===== State =====
+let equipment   = DEFAULT_EQUIPMENT.map(e=>({...e}));
+let nextEquipId = 5;
+let members     = ['田中','鈴木','佐藤','山田'];
+let activeUser  = '田中';
+let bookings    = {};
+// completeMode: { equipId: true/false } — stored in Firebase
+let completeMode = {};
+let currentDate = new Date(); currentDate.setHours(0,0,0,0);
+let pendingBook  = null, pendingCancel = null, pendingComplete = null;
 let selectedDuration = 1;
-let equipDraft   = [];
-let pickerEl     = null;
-let renamingIndex= -1;
-const tabId      = Math.random().toString(36).slice(2);
+let equipDraft = [], pickerEl = null, renamingIndex = -1;
+const tabId = Math.random().toString(36).slice(2);
 
 // ===== Helpers =====
-function dateKey(d) { return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`; }
-function getBookings() { const dk=dateKey(currentDate); if(!bookings[dk]) bookings[dk]={}; return bookings[dk]; }
-function getMemberColor(name) { const i=members.indexOf(name)%MEMBER_COLORS.length; return MEMBER_COLORS[Math.max(0,i)]; }
-function formatDate(d) { const days=['日','月','火','水','木','金','土']; return `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')} (${days[d.getDay()]})`; }
-function isToday(d) { const n=new Date(); return d.getFullYear()===n.getFullYear()&&d.getMonth()===n.getMonth()&&d.getDate()===n.getDate(); }
-
-function setSyncStatus(state) {
-  const el = document.getElementById('syncStatus');
-  if (state==='online')  { el.textContent='● 同期中'; el.style.color='var(--accent2)'; }
-  else if(state==='saving'){ el.textContent='↑ 保存中…'; el.style.color='var(--warn)'; }
-  else                   { el.textContent='○ オフライン'; el.style.color='var(--cancel)'; }
-}
+function dateKey(d){return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;}
+function getBookings(){const dk=dateKey(currentDate);if(!bookings[dk])bookings[dk]={};return bookings[dk];}
+function getMemberColor(name){const i=members.indexOf(name)%MEMBER_COLORS.length;return MEMBER_COLORS[Math.max(0,i)];}
+function formatDate(d){const days=['日','月','火','水','木','金','土'];return `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')} (${days[d.getDay()]})`;}
+function isToday(d){const n=new Date();return d.getFullYear()===n.getFullYear()&&d.getMonth()===n.getMonth()&&d.getDate()===n.getDate();}
+function setSyncStatus(s){const el=document.getElementById('syncStatus');if(s==='online'){el.textContent='● 同期中';el.style.color='#10b981';}else if(s==='saving'){el.textContent='↑ 保存中…';el.style.color='#f59e0b';}else{el.textContent='○ オフライン';el.style.color='#ef4444';}}
 
 // ===== Firebase listeners =====
-function setupListeners() {
-  // bookings
-  onValue(ref(db,'bookings'), snap => {
-    bookings = snap.val() || {};
-    // Firebase keys are strings; convert slot indices back to numbers for each day/equip
-    Object.keys(bookings).forEach(dk => {
-      Object.keys(bookings[dk]).forEach(eqId => {
-        const slots = bookings[dk][eqId];
-        const converted = {};
-        Object.keys(slots).forEach(si => { converted[Number(si)] = slots[si]; });
-        bookings[dk][eqId] = converted;
+function setupListeners(){
+  onValue(ref(db,'bookings'),snap=>{
+    bookings=snap.val()||{};
+    Object.keys(bookings).forEach(dk=>{
+      Object.keys(bookings[dk]).forEach(eqId=>{
+        const slots=bookings[dk][eqId],converted={};
+        Object.keys(slots).forEach(si=>{converted[Number(si)]=slots[si];});
+        bookings[dk][eqId]=converted;
       });
     });
-    renderTable();
-    setSyncStatus('online');
+    renderTable(); setSyncStatus('online');
   });
-
-  // members
-  onValue(ref(db,'members'), snap => {
-    const val = snap.val();
-    if (val && Array.isArray(val)) members = val;
-    renderMembers();
-  });
-
-  // equipment
-  onValue(ref(db,'equipment'), snap => {
-    const val = snap.val();
-    if (val && Array.isArray(val) && val.length) {
-      equipment  = val;
-      nextEquipId = Math.max(...equipment.map(e=>e.id)) + 1;
-    }
+  onValue(ref(db,'members'),snap=>{const v=snap.val();if(v&&Array.isArray(v))members=v;renderMembers();});
+  onValue(ref(db,'equipment'),snap=>{
+    const v=snap.val();
+    if(v&&Array.isArray(v)&&v.length){equipment=v;nextEquipId=Math.max(...equipment.map(e=>e.id))+1;}
     renderTable();
   });
-
-  // notifications from others
-  onValue(ref(db,'events'), snap => {
-    const val = snap.val();
-    if (!val) return;
-    const events = Object.values(val).sort((a,b)=>a.ts-b.ts);
-    const lastSeen = Number(sessionStorage.getItem('lastEventTs')||'0');
-    events.forEach(evt => {
-      if (evt.ts > lastSeen && evt.origin !== tabId) {
-        showNotif(evt.type, evt.title, evt.text, evt.subtext);
-      }
-    });
-    const latest = events[events.length-1];
-    if (latest) sessionStorage.setItem('lastEventTs', String(latest.ts));
+  onValue(ref(db,'completeMode'),snap=>{
+    const v=snap.val();
+    completeMode=v||{};
+    renderTableHeader();
+  });
+  onValue(ref(db,'events'),snap=>{
+    const v=snap.val(); if(!v) return;
+    const events=Object.values(v).sort((a,b)=>a.ts-b.ts);
+    const lastSeen=Number(sessionStorage.getItem('lastEventTs')||'0');
+    events.forEach(evt=>{if(evt.ts>lastSeen&&evt.origin!==tabId)showNotif(evt.type,evt.title,evt.text,evt.subtext);});
+    const latest=events[events.length-1];
+    if(latest) sessionStorage.setItem('lastEventTs',String(latest.ts));
   });
 }
 
-async function pushEvent(evt) {
-  evt.ts     = Date.now();
-  evt.origin = tabId;
-  const key  = `evt_${evt.ts}_${Math.random().toString(36).slice(2,6)}`;
-  await set(ref(db,`events/${key}`), evt);
-  // Prune old events (keep last 50)
-  // simple: just let Firebase accumulate; listener handles dedup by ts
+async function pushEvent(evt){
+  evt.ts=Date.now(); evt.origin=tabId;
+  const key=`evt_${evt.ts}_${Math.random().toString(36).slice(2,6)}`;
+  await set(ref(db,`events/${key}`),evt);
 }
 
 // ===== Render =====
-function renderTableHeader() {
-  const thead = document.getElementById('scheduleHead');
-  thead.innerHTML = '';
-  const tr = document.createElement('tr');
-  const timeTh = document.createElement('th');
-  timeTh.className='time-header'; timeTh.textContent='時間';
-  tr.appendChild(timeTh);
-  equipment.forEach(eq => {
-    const th = document.createElement('th');
-    th.className='equipment-header'; th.id=`th-${eq.id}`;
-    th.innerHTML=`<span class="equip-icon">${eq.icon}</span><span class="equip-name">${eq.name}</span><span class="equip-count" id="cnt-${eq.id}">空き</span>`;
+function renderTableHeader(){
+  const thead=document.getElementById('scheduleHead');
+  thead.innerHTML='';
+  const tr=document.createElement('tr');
+  const timeTh=document.createElement('th'); timeTh.className='time-header'; timeTh.textContent='時間'; tr.appendChild(timeTh);
+  equipment.forEach(eq=>{
+    const th=document.createElement('th'); th.className='equipment-header'; th.id=`th-${eq.id}`;
+    const isOn=!!completeMode[eq.id];
+    th.innerHTML=`
+      <span class="equip-icon">${eq.icon}</span>
+      <span class="equip-name">${eq.name}</span>
+      <span class="equip-count" id="cnt-${eq.id}">空き</span>
+      <label class="complete-toggle" title="完了申請モード: ONにすると使用完了時に全員へ通知">
+        <div class="toggle-track ${isOn?'on':''}" id="toggle-${eq.id}">
+          <div class="toggle-thumb"></div>
+        </div>
+        <span class="toggle-label">${isOn?'完了通知ON':'完了通知OFF'}</span>
+      </label>`;
+    th.querySelector('.complete-toggle').onclick=e=>{e.stopPropagation();toggleCompleteMode(eq.id);};
     th.oncontextmenu=e=>{e.preventDefault();openEquipModal();};
     tr.appendChild(th);
   });
   thead.appendChild(tr);
 }
 
-function renderTable() {
+function renderTable(){
   renderTableHeader();
-  const tbody = document.getElementById('scheduleBody');
-  tbody.innerHTML = '';
-  const now = new Date();
-  const curSlot = isToday(currentDate)
-    ? SLOTS.findIndex(s=>s.hour===now.getHours()&&s.min<=now.getMinutes()&&s.min+30>now.getMinutes())
-    : -1;
-  const bk = getBookings();
-
-  SLOTS.forEach((slot,si) => {
-    const tr = document.createElement('tr');
-    if (slot.min===0) tr.classList.add('hour-start');
-    if (si===curSlot) tr.classList.add('current-time-row');
+  const tbody=document.getElementById('scheduleBody'); tbody.innerHTML='';
+  const now=new Date();
+  const curSlot=isToday(currentDate)?SLOTS.findIndex(s=>s.hour===now.getHours()&&s.min<=now.getMinutes()&&s.min+30>now.getMinutes()):-1;
+  const bk=getBookings();
+  SLOTS.forEach((slot,si)=>{
+    const tr=document.createElement('tr');
+    if(slot.min===0) tr.classList.add('hour-start');
+    if(si===curSlot) tr.classList.add('current-time-row');
     const tc=document.createElement('td'); tc.className='time-cell'; tc.textContent=slot.label; tr.appendChild(tc);
-
-    equipment.forEach(eq => {
+    equipment.forEach(eq=>{
       const td=document.createElement('td'); td.className='slot-cell';
       const inner=document.createElement('div'); inner.className='slot-inner';
       const booking=bk[eq.id]?.[si];
-      if (booking) {
+      if(booking){
         const color=getMemberColor(booking.name);
         inner.classList.add('booked');
-        inner.style.background=color.bg;
-        inner.style.borderLeft=`3px solid ${color.border}`;
-        const nxt=bk[eq.id]?.[si+1], prv=bk[eq.id]?.[si-1];
-        const hasNext=nxt&&nxt.name===booking.name, hasPrev=prv&&prv.name===booking.name;
+        if(booking.completed) inner.classList.add('completed');
+        inner.style.background=booking.completed?'#f0fdf4':color.bg;
+        inner.style.borderLeft=`3px solid ${booking.completed?'#86efac':color.border}`;
+        const nxt=bk[eq.id]?.[si+1],prv=bk[eq.id]?.[si-1];
+        const hasNext=nxt&&nxt.name===booking.name,hasPrev=prv&&prv.name===booking.name;
         if(booking.isFirst&&hasNext) inner.style.borderRadius='4px 4px 0 0';
         else if(hasPrev&&hasNext) inner.style.borderRadius='0';
         else if(hasPrev&&!hasNext) inner.style.borderRadius='0 0 4px 4px';
         if(booking.isFirst){
-          const ne=document.createElement('div'); ne.className='slot-name'; ne.style.color=color.text; ne.textContent=booking.name; inner.appendChild(ne);
-          const te=document.createElement('div'); te.className='slot-time-label'; te.style.color=color.text; te.textContent=`${booking.slots*30}分`; inner.appendChild(te);
+          const ne=document.createElement('div'); ne.className='slot-name';
+          ne.style.color=booking.completed?'#16a34a':color.text;
+          ne.textContent=booking.completed?`✓ ${booking.name}`:booking.name;
+          inner.appendChild(ne);
+          const te=document.createElement('div'); te.className='slot-time-label';
+          te.style.color=booking.completed?'#16a34a':color.text;
+          te.textContent=booking.completed?'完了':`${booking.slots*30}分`;
+          inner.appendChild(te);
+          // 完了ボタン（完了申請モードON かつ 未完了 かつ 今日）
+          if(completeMode[eq.id]&&!booking.completed&&isToday(currentDate)){
+            const cb=document.createElement('button'); cb.className='complete-btn visible';
+            cb.textContent='✓'; cb.title='使用完了を通知';
+            cb.onclick=ev=>{ev.stopPropagation();openCompleteModal(eq,si,booking);};
+            inner.appendChild(cb);
+          }
         }
-        inner.onclick=()=>openCancelModal(eq,si,booking);
+        if(!booking.completed){
+          inner.onclick=()=>openCancelModal(eq,si,booking);
+        }
       } else {
         inner.classList.add('empty');
         inner.title=`${slot.label} ${eq.name}に予約`;
@@ -453,13 +473,13 @@ function renderTable() {
   updateStats(); updateEquipCounts();
 }
 
-function updateStats() {
+function updateStats(){
   const bk=getBookings(); let total=0,bookedSlots=0; const users=new Set(),hourCount={};
   equipment.forEach(eq=>{
     if(!bk[eq.id]) return;
     bookedSlots+=Object.keys(bk[eq.id]).length;
     Object.entries(bk[eq.id]).forEach(([si,b])=>{
-      if(b.isFirst){total++;users.add(b.name);const h=SLOTS[si]?.hour;if(h!=null) hourCount[h]=(hourCount[h]||0)+1;}
+      if(b.isFirst){total++;users.add(b.name);const h=SLOTS[si]?.hour;if(h!=null)hourCount[h]=(hourCount[h]||0)+1;}
     });
   });
   document.getElementById('statTotal').textContent=total;
@@ -469,7 +489,7 @@ function updateStats() {
   document.getElementById('statPeak').textContent=peak?`${peak[0]}時台`:'—';
 }
 
-function updateEquipCounts() {
+function updateEquipCounts(){
   const bk=getBookings();
   equipment.forEach(eq=>{
     let cnt=0; if(bk[eq.id]) Object.values(bk[eq.id]).forEach(b=>{if(b.isFirst)cnt++;});
@@ -478,7 +498,7 @@ function updateEquipCounts() {
   });
 }
 
-function renderMembers() {
+function renderMembers(){
   const list=document.getElementById('membersList'); list.innerHTML='';
   members.forEach((name,i)=>{
     const color=MEMBER_COLORS[i%MEMBER_COLORS.length];
@@ -486,7 +506,6 @@ function renderMembers() {
     chip.className='member-chip'+(name===activeUser?' selected':'');
     chip.style.background=name===activeUser?color.bg:'transparent';
     chip.style.borderColor=color.border; chip.style.color=color.text;
-    chip.title='左クリック: 選択 / ✎: 名前変更';
     const dot=document.createElement('span'); dot.className='member-dot'; dot.style.background=color.dot;
     const lbl=document.createElement('span'); lbl.textContent=name;
     const editBtn=document.createElement('button'); editBtn.className='chip-edit-btn'; editBtn.textContent='✎';
@@ -499,8 +518,52 @@ function renderMembers() {
   document.getElementById('activeUserName').textContent=activeUser;
 }
 
+// ===== Complete Mode Toggle =====
+async function toggleCompleteMode(eqId){
+  const newVal=!completeMode[eqId];
+  setSyncStatus('saving');
+  await update(ref(db),{[`completeMode/${eqId}`]:newVal});
+  setSyncStatus('online');
+  const eq=equipment.find(e=>e.id===eqId);
+  showNotif('info', newVal?'🔔 完了通知ON':'🔕 完了通知OFF',
+    `${eq?.name} の完了申請モードを${newVal?'有効':'無効'}にしました。`,'');
+}
+
+// ===== Complete Modal =====
+function openCompleteModal(eq,slotIdx,booking){
+  pendingComplete={eq,slotIdx,booking};
+  const slot=SLOTS[slotIdx], endSlotIdx=slotIdx+booking.slots;
+  const endTime=endSlotIdx<SLOTS.length?SLOTS[endSlotIdx].label:'19:00';
+  document.getElementById('completeBookingInfo').innerHTML=`
+    <div class="booking-info-row"><span>装置</span><span>${eq.icon} ${eq.name}</span></div>
+    <div class="booking-info-row"><span>予約者</span><span>${booking.name}</span></div>
+    <div class="booking-info-row"><span>予約時間</span><span>${slot.label} 〜 ${endTime}</span></div>`;
+  document.getElementById('completeModal').classList.add('open');
+}
+
+async function confirmComplete(){
+  if(!pendingComplete) return;
+  const {eq,slotIdx,booking}=pendingComplete;
+  const dk=dateKey(currentDate);
+  const updates={};
+  // Mark all slots of this booking as completed
+  for(let i=slotIdx;i<slotIdx+booking.slots;i++){
+    if(bookings[dk]?.[eq.id]?.[i]) updates[`bookings/${dk}/${eq.id}/${i}/completed`]=true;
+  }
+  closeModal('completeModal'); setSyncStatus('saving');
+  await update(ref(db),updates); setSyncStatus('online');
+  const slot=SLOTS[slotIdx], endSlotIdx=slotIdx+booking.slots;
+  const endTime=endSlotIdx<SLOTS.length?SLOTS[endSlotIdx].label:'19:00';
+  const now=new Date();
+  const nowLabel=`${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+  const text=`${booking.name} さんが ${eq.name} の使用を完了しました（${nowLabel}）。予約時間 ${slot.label}〜${endTime} より早く空きました！`;
+  showNotif('complete','✅ 使用完了通知',text,formatDate(currentDate));
+  await pushEvent({type:'complete',title:'✅ 使用完了通知',text,subtext:formatDate(currentDate)});
+}
+window.confirmComplete=confirmComplete;
+
 // ===== Booking =====
-function openBookModal(eq,slotIdx) {
+function openBookModal(eq,slotIdx){
   pendingBook={eq,slotIdx}; selectedDuration=1;
   document.getElementById('bookModalSubtitle').textContent=`${eq.icon} ${eq.name}  ·  ${formatDate(currentDate)}  ·  ${SLOTS[slotIdx].label}〜`;
   const sel=document.getElementById('bookMember'); sel.innerHTML='';
@@ -518,27 +581,26 @@ function openBookModal(eq,slotIdx) {
   document.getElementById('bookModal').classList.add('open');
 }
 
-async function confirmBook() {
+async function confirmBook(){
   if(!pendingBook) return;
   const {eq,slotIdx}=pendingBook;
   const memberName=document.getElementById('bookMember').value;
-  const dk=dateKey(currentDate);
-  const updates={};
+  const dk=dateKey(currentDate); const updates={};
   for(let i=0;i<selectedDuration;i++){
     const si=slotIdx+i; if(si>=SLOTS.length) break;
-    updates[`bookings/${dk}/${eq.id}/${si}`]={name:memberName,slots:selectedDuration,isFirst:i===0};
+    updates[`bookings/${dk}/${eq.id}/${si}`]={name:memberName,slots:selectedDuration,isFirst:i===0,completed:false};
   }
   closeModal('bookModal'); setSyncStatus('saving');
   await update(ref(db),updates); setSyncStatus('online');
   const startTime=SLOTS[slotIdx].label, endSlot=slotIdx+selectedDuration;
   const endTime=endSlot<SLOTS.length?SLOTS[endSlot].label:'19:00';
   const text=`${memberName} さんが ${eq.name} を ${startTime}〜${endTime} で予約しました。`;
-  showNotif('reserve','✅ 予約完了',text,formatDate(currentDate));
+  showNotif('reserve','📅 予約完了',text,formatDate(currentDate));
   await pushEvent({type:'reserve',title:'📅 新規予約',text,subtext:formatDate(currentDate)});
 }
 
 // ===== Cancel =====
-function openCancelModal(eq,slotIdx,booking) {
+function openCancelModal(eq,slotIdx,booking){
   if(!booking.isFirst){
     const bk=getBookings();
     for(let i=slotIdx-1;i>=0;i--){
@@ -563,11 +625,10 @@ function openCancelModal(eq,slotIdx,booking) {
   document.getElementById('cancelModal').classList.add('open');
 }
 
-async function confirmCancel() {
+async function confirmCancel(){
   if(!pendingCancel) return;
   const {eq,slotIdx,booking}=pendingCancel;
-  const dk=dateKey(currentDate);
-  const updates={};
+  const dk=dateKey(currentDate); const updates={};
   for(let i=slotIdx;i<slotIdx+booking.slots;i++) updates[`bookings/${dk}/${eq.id}/${i}`]=null;
   closeModal('cancelModal'); setSyncStatus('saving');
   await update(ref(db),updates); setSyncStatus('online');
@@ -576,29 +637,25 @@ async function confirmCancel() {
   const today=new Date();today.setHours(0,0,0,0);
   const tomorrow=new Date(today);tomorrow.setDate(tomorrow.getDate()+1);
   const isUrgent=new Date(currentDate)<=tomorrow;
-  const title=isUrgent?'🚨 緊急キャンセル通知':'❌ 予約キャンセル通知';
+  const title=isUrgent?'🚨 緊急キャンセル':'❌ 予約キャンセル';
   const text=`${booking.name} さんの ${eq.name} の予約 (${slot.label}〜${endTime}) がキャンセルされました。`;
   showNotif('cancel',title,text,formatDate(currentDate));
   await pushEvent({type:'cancel',title,text,subtext:formatDate(currentDate)});
 }
 
 // ===== Modals =====
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function closeModal(id){document.getElementById(id).classList.remove('open');}
 document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
 
 // ===== Members =====
-async function addMember() {
-  if(members.length>=8){showNotif('info','ℹ️ メンバー上限','メンバーは最大8人まで登録できます。','');return;}
+async function addMember(){
+  if(members.length>=8){showNotif('info','ℹ️ 上限','メンバーは最大8人まで登録できます。','');return;}
   const name=prompt('新しいメンバーの名前を入力してください:');
-  if(name&&name.trim()){
-    members.push(name.trim());
-    setSyncStatus('saving'); await set(ref(db,'members'),members); setSyncStatus('online');
-    renderMembers(); showNotif('info','👤 メンバー追加',`${name.trim()} さんが追加されました。`,'');
-  }
+  if(name&&name.trim()){members.push(name.trim());setSyncStatus('saving');await set(ref(db,'members'),members);setSyncStatus('online');renderMembers();showNotif('info','👤 追加',`${name.trim()} さんが追加されました。`,'');}
 }
 window.addMember=addMember;
 
-function openRenameModal(idx) {
+function openRenameModal(idx){
   renamingIndex=idx;
   document.getElementById('renameModalSubtitle').textContent=`現在の名前: ${members[idx]}`;
   const input=document.getElementById('renameInput'); input.value=members[idx];
@@ -607,13 +664,12 @@ function openRenameModal(idx) {
 }
 window.openRenameModal=openRenameModal;
 
-async function confirmRename() {
+async function confirmRename(){
   const newName=document.getElementById('renameInput').value.trim();
   if(!newName||renamingIndex<0) return;
   const oldName=members[renamingIndex];
   if(newName===oldName){closeModal('renameModal');return;}
   if(members.includes(newName)){showNotif('info','⚠️ 重複',`「${newName}」はすでに登録されています。`,'');return;}
-  // Update in bookings
   const updates={};
   Object.keys(bookings).forEach(dk=>{
     Object.keys(bookings[dk]).forEach(eqId=>{
@@ -627,57 +683,49 @@ async function confirmRename() {
   updates['members']=members;
   closeModal('renameModal'); setSyncStatus('saving');
   await update(ref(db),updates); setSyncStatus('online');
-  renderMembers(); showNotif('info','✏️ 名前を変更しました',`「${oldName}」→「${newName}」`,'');
+  renderMembers(); showNotif('info','✏️ 名前変更',`「${oldName}」→「${newName}」`,'');
 }
 window.confirmRename=confirmRename;
 
-// ===== Equipment management =====
-function openEquipModal() {
-  equipDraft=equipment.map(e=>({...e}));
-  renderEquipList();
-  document.getElementById('equipModal').classList.add('open');
-}
+// ===== Equipment =====
+function openEquipModal(){equipDraft=equipment.map(e=>({...e}));renderEquipList();document.getElementById('equipModal').classList.add('open');}
 window.openEquipModal=openEquipModal;
 
-function renderEquipList() {
+function renderEquipList(){
   const list=document.getElementById('equipList'); list.innerHTML='';
   equipDraft.forEach((eq,i)=>{
     const row=document.createElement('div'); row.className='equip-row';
-    const iconBtn=document.createElement('div'); iconBtn.className='equip-row-icon'; iconBtn.textContent=eq.icon; iconBtn.title='アイコンを変更';
+    const iconBtn=document.createElement('div'); iconBtn.className='equip-row-icon'; iconBtn.textContent=eq.icon;
     iconBtn.onclick=e=>{e.stopPropagation();toggleEmojiPicker(e,i);};
     const nameInput=document.createElement('input'); nameInput.className='equip-row-name'; nameInput.value=eq.name; nameInput.placeholder='装置名';
     nameInput.oninput=()=>{equipDraft[i].name=nameInput.value;};
-    const delBtn=document.createElement('button'); delBtn.className='equip-row-del'; delBtn.innerHTML='🗑'; delBtn.title='削除';
-    delBtn.onclick=()=>{if(!confirm(`「${eq.name}」を削除しますか？\nこの装置の予約データも削除されます。`))return;equipDraft.splice(i,1);renderEquipList();};
+    const delBtn=document.createElement('button'); delBtn.className='equip-row-del'; delBtn.innerHTML='🗑';
+    delBtn.onclick=()=>{if(!confirm(`「${eq.name}」を削除しますか？`))return;equipDraft.splice(i,1);renderEquipList();};
     row.appendChild(iconBtn); row.appendChild(nameInput); row.appendChild(delBtn); list.appendChild(row);
   });
 }
 
-function addEquipRow() {
-  equipDraft.push({id:nextEquipId++,name:'',icon:'🔬'});
-  renderEquipList();
+function addEquipRow(){
+  equipDraft.push({id:nextEquipId++,name:'',icon:'🔬'});renderEquipList();
   setTimeout(()=>{const inputs=document.querySelectorAll('.equip-row-name');if(inputs.length)inputs[inputs.length-1].focus();},50);
 }
 window.addEquipRow=addEquipRow;
 
-async function saveEquipChanges() {
+async function saveEquipChanges(){
   const valid=equipDraft.filter(e=>e.name.trim());
   if(!valid.length){alert('装置名を入力してください。');return;}
   const deletedIds=equipment.map(e=>e.id).filter(id=>!valid.find(e=>e.id===id));
   const updates={'equipment':valid};
   if(deletedIds.length){
-    const today=new Date();today.setHours(0,0,0,0);
-    Object.keys(bookings).forEach(dk=>{
-      deletedIds.forEach(id=>{updates[`bookings/${dk}/${id}`]=null;});
-    });
+    Object.keys(bookings).forEach(dk=>{deletedIds.forEach(id=>{updates[`bookings/${dk}/${id}`]=null;});});
   }
   closeModal('equipModal'); setSyncStatus('saving');
   await update(ref(db),updates); setSyncStatus('online');
-  showNotif('info','⚗️ 装置を更新しました',`${valid.length}件の装置が登録されています。`,'');
+  showNotif('info','⚗️ 装置更新',`${valid.length}件の装置が登録されています。`,'');
 }
 window.saveEquipChanges=saveEquipChanges;
 
-function toggleEmojiPicker(e,idx) {
+function toggleEmojiPicker(e,idx){
   closeEmojiPicker();
   pickerEl=document.createElement('div'); pickerEl.className='emoji-picker';
   LAB_EMOJIS.forEach(emoji=>{
@@ -696,7 +744,7 @@ function closeEmojiPicker(){if(pickerEl){pickerEl.remove();pickerEl=null;}}
 function showNotif(type,title,text,subtext){
   const panel=document.getElementById('notifPanel');
   const notif=document.createElement('div'); notif.className=`notification ${type}`;
-  const icons={cancel:'🔔',reserve:'✅',info:'ℹ️'};
+  const icons={cancel:'🔔',reserve:'📅',info:'ℹ️',complete:'✅'};
   notif.innerHTML=`
     <div class="notif-icon">${icons[type]||'ℹ️'}</div>
     <div class="notif-body">
@@ -706,18 +754,12 @@ function showNotif(type,title,text,subtext){
     </div>
     <button class="notif-close" onclick="this.closest('.notification').remove()">✕</button>`;
   panel.appendChild(notif);
-  setTimeout(()=>{notif.style.animation='slideOut 0.3s ease forwards';setTimeout(()=>notif.remove(),300);},5000);
+  setTimeout(()=>{notif.style.animation='slideOut 0.3s ease forwards';setTimeout(()=>notif.remove(),300);},6000);
 }
 
 // ===== Navigation =====
-function changeDate(delta){
-  currentDate=new Date(currentDate); currentDate.setDate(currentDate.getDate()+delta);
-  document.getElementById('currentDateDisplay').textContent=formatDate(currentDate);
-  renderTable();
-}
+function changeDate(delta){currentDate=new Date(currentDate);currentDate.setDate(currentDate.getDate()+delta);document.getElementById('currentDateDisplay').textContent=formatDate(currentDate);renderTable();}
 window.changeDate=changeDate;
-
-// ===== Confirm wrappers (called from HTML onclick) =====
 window.confirmBook=confirmBook;
 window.confirmCancel=confirmCancel;
 window.closeModal=closeModal;
