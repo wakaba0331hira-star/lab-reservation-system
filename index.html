@@ -191,6 +191,7 @@
     </div>
     <div class="header-right">
       <div id="syncStatus">○ 接続中…</div>
+      <button class="nav-btn" id="pushBtn" onclick="requestPushPermission()" title="スマホ通知を有効にする">🔔 通知ON</button>
       <button class="nav-btn" onclick="openEquipModal()">⚗️ 装置管理</button>
       <div class="date-nav">
         <button class="nav-btn" onclick="changeDate(-1)">‹</button>
@@ -419,12 +420,40 @@ function setupListeners(){
     const v=snap.val();if(!v)return;
     const events=Object.values(v).sort((a,b)=>a.ts-b.ts);
     const lastSeen=Number(sessionStorage.getItem('lastEventTs')||'0');
-    events.forEach(evt=>{if(evt.ts>lastSeen&&evt.origin!==tabId)showNotif(evt.type,evt.title,evt.text,evt.subtext);});
+    events.forEach(evt=>{
+      if(evt.ts>lastSeen&&evt.origin!==tabId){
+        showNotif(evt.type,evt.title,evt.text,evt.subtext,evt);
+        sendPushNotif(evt.title,evt.text);
+      }
+    });
     const latest=events[events.length-1];
     if(latest)sessionStorage.setItem('lastEventTs',String(latest.ts));
   });
 }
-async function pushEvent(evt){evt.ts=Date.now();evt.origin=tabId;const key=`evt_${evt.ts}_${Math.random().toString(36).slice(2,6)}`;await set(ref(db,`events/${key}`),evt);}
+async function pushEvent(evt){
+  evt.ts=Date.now();evt.origin=tabId;
+  const key=`evt_${evt.ts}_${Math.random().toString(36).slice(2,6)}`;
+  await set(ref(db,`events/${key}`),evt);
+  // ブラウザプッシュ通知（自分の操作以外は他のタブ/端末でも届くのでここでは自分の操作分を送る）
+  sendPushNotif(evt.title, evt.text);
+}
+
+// ===== ブラウザプッシュ通知 =====
+async function requestPushPermission(){
+  if(!('Notification' in window))return;
+  if(Notification.permission==='default'){
+    const result=await Notification.requestPermission();
+    if(result==='granted')showNotif('info','🔔 通知が有効になりました','予約・キャンセル・完了時にスマホ通知が届きます。','');
+  }
+}
+function sendPushNotif(title, body){
+  if(!('Notification' in window))return;
+  if(Notification.permission!=='granted')return;
+  // バックグラウンド時のみ送る（フォアグラウンドは画面内バナーで十分）
+  if(document.visibilityState==='hidden'){
+    try{ new Notification(title,{body,icon:'https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f52c.png',badge:'https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f52c.png'}); }catch(e){}
+  }
+}
 
 // ===== Render =====
 function renderTableHeader(){
@@ -695,13 +724,34 @@ function closeEmojiPicker(){if(pickerEl){pickerEl.remove();pickerEl=null;}}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
 
-function showNotif(type,title,text,subtext){
+function isTimeRelevant(evt){
+  // 自分の名前が含まれる通知は常に重要
+  if(activeUser && evt && evt.text && evt.text.includes(activeUser)) return true;
+  // 完了通知は常に重要（次に使える人への情報）
+  if(evt && evt.type==='complete') return true;
+  // 今日の予約に関する通知かチェック
+  if(evt && evt.subtext){
+    const today=new Date();
+    const todayStr=`${today.getFullYear()}/${String(today.getMonth()+1).padStart(2,'0')}/${String(today.getDate()).padStart(2,'0')}`;
+    if(evt.subtext.startsWith(todayStr)) return true;
+  }
+  // infoは短めに消す（重要度低）
+  if(evt && evt.type==='info') return false;
+  return true;
+}
+
+function showNotif(type,title,text,subtext,evt=null){
   const panel=document.getElementById('notifPanel');
   const notif=document.createElement('div');notif.className=`notification ${type}`;
   const icons={cancel:'🔔',reserve:'📅',info:'ℹ️',complete:'✅'};
+  // 関係ある通知は長め(8秒)、関係ない通知は短め(2.5秒)で自動消去
+  const relevant=isTimeRelevant(evt||{type,text,subtext});
+  const duration=relevant?8000:2500;
   notif.innerHTML=`<div class="notif-icon">${icons[type]||'ℹ️'}</div><div class="notif-body"><div class="notif-title">${title}</div><div class="notif-text">${text}</div><div class="notif-time">${subtext||''} · ${new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}</div></div><button class="notif-close" onclick="this.closest('.notification').remove()">✕</button>`;
+  // 関係ない通知は薄くする
+  if(!relevant) notif.style.opacity='0.6';
   panel.appendChild(notif);
-  setTimeout(()=>{notif.style.animation='slideOut 0.3s ease forwards';setTimeout(()=>notif.remove(),300);},6000);
+  setTimeout(()=>{notif.style.animation='slideOut 0.3s ease forwards';setTimeout(()=>notif.remove(),300);},duration);
 }
 
 function changeDate(delta){currentDate=new Date(currentDate);currentDate.setDate(currentDate.getDate()+delta);document.getElementById('currentDateDisplay').textContent=formatDate(currentDate);renderTable();}
@@ -709,11 +759,19 @@ window.changeDate=changeDate;
 window.confirmBook=confirmBook;
 window.confirmCancel=confirmCancel;
 window.closeModal=closeModal;
+window.requestPushPermission=requestPushPermission;
 
 // Init
 document.getElementById('currentDateDisplay').textContent=formatDate(currentDate);
 loadMyUser();
 setupListeners();
+// 通知ボタンの初期状態
+(function(){
+  const btn=document.getElementById('pushBtn');
+  if(!('Notification' in window)){btn.style.display='none';return;}
+  if(Notification.permission==='granted'){btn.textContent='🔔 通知ON済';btn.style.color='var(--accent2)';btn.style.borderColor='var(--accent2)';}
+  else if(Notification.permission==='denied'){btn.textContent='🔕 通知NG';btn.style.opacity='0.5';}
+})();
 </script>
 </body>
 </html>
